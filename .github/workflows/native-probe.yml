@@ -26,7 +26,6 @@ jobs:
           PYTHONUNBUFFERED: '1'
           UPLOAD_PACKAGES: 'False'
           CONDA_CHANNEL_PRIORITY: strict
-          EXTRA_CB_OPTIONS: '--override-channels -c conda-forge'
           RATTLER_BUILD_COLOR: always
           RATTLER_BUILD_ENABLE_GITHUB_INTEGRATION: 'true'
         run: |
