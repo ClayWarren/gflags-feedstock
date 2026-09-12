@@ -43,6 +43,19 @@ tests:
           - if not exist %PREFIX%\\Library\\lib\\gflags.lib exit 1
           - if exist %PREFIX%\\Library\\lib\\gflags_static.lib exit 1
 
+  - script:
+      - cmake -S probe-consumer -B consumer-build -G "NMake Makefiles" -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%"
+      - cmake --build consumer-build
+      - consumer-build\consumer.exe --count=42
+      - dumpbin /headers consumer-build\consumer.exe | findstr /I /C:"AA64 machine (ARM64)"
+    requirements:
+      run:
+        - ${{ compiler("cxx") }}
+        - cmake
+    files:
+      recipe:
+        - probe-consumer
+
 about:
   license: BSD-3-Clause
   license_file: COPYING.txt

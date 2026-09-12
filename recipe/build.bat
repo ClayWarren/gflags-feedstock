@@ -8,6 +8,7 @@ if errorlevel 1 exit /b 1
 cmake -G "NMake Makefiles" ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG% ^
       -DBUILD_SHARED_LIBS:BOOL=ON ^
+      -DBUILD_TESTING=ON ^
       -DBUILD_STATIC_LIBS:BOOL=OFF ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^
       -DGFLAGS_REGISTER_BUILD_DIR:BOOL=OFF ^
@@ -17,6 +18,10 @@ cmake -G "NMake Makefiles" ^
 if errorlevel 1 exit /b 1
 
 cmake --build . --target install --config %CMAKE_CONFIG%
+if errorlevel 1 exit /b 1
+
+set "PATH=%LIBRARY_BIN%;%PATH%"
+ctest --output-on-failure
 if errorlevel 1 exit /b 1
 
 popd
