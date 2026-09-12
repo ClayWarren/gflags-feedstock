@@ -17,7 +17,8 @@ build:
 requirements:
   build:
     - cmake
-    - make
+    - if: unix
+      then: make
     - ${{ stdlib('c') }}
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
